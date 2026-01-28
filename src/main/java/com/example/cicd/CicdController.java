@@ -10,11 +10,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class CicdController {
+
     @Value("${app.version:dev}")
     private String version;
 
     @GetMapping("/hello")
     public Map<String, String> hello() {
-        return Map.of("message","hello","version",version);
+        return Map.of(
+                "message", "hello",
+                "version", version
+        );
     }
 }
