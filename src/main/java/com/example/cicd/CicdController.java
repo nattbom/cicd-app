@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.InetAddress;
 import java.util.Map;
 
 @RestController
@@ -15,10 +16,12 @@ public class CicdController {
     private String version;
 
     @GetMapping("/hello")
-    public Map<String, String> hello() {
+    public Map<String, String> hello() throws Exception{
+        String hostname = InetAddress.getLocalHost().getHostName();
         return Map.of(
                 "message", "hello",
-                "version", version
+                "version", version,
+                "hostname", hostname
         );
     }
 }
