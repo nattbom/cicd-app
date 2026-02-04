@@ -11,17 +11,18 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class CicdController {
+    private final CicdService cicdService;
 
     @Value("${app.version:dev}")
     private String version;
 
+    public CicdController(CicdService cicdService) {
+        this.cicdService = cicdService;
+    }
+
     @GetMapping("/hello")
     public Map<String, String> hello() throws Exception{
         String hostname = InetAddress.getLocalHost().getHostName();
-        return Map.of(
-                "message", "hello",
-                "version", version,
-                "hostname", hostname
-        );
+        return cicdService.hello(version, hostname);
     }
 }
